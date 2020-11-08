@@ -1,0 +1,62 @@
+{% extends "layout_login.html" %}
+{% block content %}
+<body id="kt_body" style="background-image: url(static/media/bg/bg-10.jpg)" class="quick-panel-right demo-panel-right offcanvas-right header-fixed subheader-enabled page-loading">
+    <!--begin::Main-->
+    <div class="d-flex flex-column flex-root">
+        <!--begin::Login-->
+        <div class="login login-1 login-signin-on d-flex flex-row-fluid" id="kt_login">
+            <div class="d-flex flex-center bgi-size-cover bgi-no-repeat flex-row-fluid" style="background-image: url(static/media/bg/bg-1.jpg);">
+                <div class="login-form text-center text-white p-7 position-relative overflow-hidden">
+                    <!--begin::Login Header-->
+                    <div class="d-flex flex-center mb-15">
+                        <a href="#">
+                            <img src="{{ url_for('static', filename='media/logos/logo-letter-9.png') }}" class="max-h-100px" alt="" />
+                        </a>
+                    </div>
+
+<div class="login-forgot-on">
+    <div class="mb-20">
+        <h3>Mot de passe oublié ?</h3>
+        <p class="opacity-60">Entrez votre email pour récupérer votre mot de passe </p>
+    </div>
+    <form class="form" id="kt_login_forgot_form" method="POST" action="">
+        {{ form.hidden_tag() }}
+        <div class="form-group mb-10">
+                              
+            {% if form.password.errors %}
+            {{ form.password(class="form-control h-auto text-white placeholder-white opacity-70 bg-dark-o-70 rounded-pill border-0 py-4 px-8 is-invalid") }}
+                <div class="invalid-feedback">
+                    {% for error in form.password.errors %}
+                        <span>{{ error }}</span>
+                    {% endfor %}
+                </div>
+                {% else %}
+                {{ form.password( class="form-control h-auto text-white placeholder-white opacity-70 bg-dark-o-70 rounded-pill border-0 py-4 px-8",placeholder="Mot de passe ") }}
+            {% endif %}
+        </div>
+        <div class="form-group">
+            {% if form.confirm_password.errors %}
+                {{ form.confirm_password( class="form-control h-auto text-white placeholder-white opacity-70 bg-dark-o-70 rounded-pill border-0 py-4 px-8 is-invalid",placeholder=" Confirmez votre mot de passe ") }}
+                
+                <div class="invalid-feedback">
+                    {% for error in form.confirm_password.errors %}
+                        <span>{{ error }}</span>
+                    {% endfor %}
+                </div>
+                {% else %}
+                {{ form.confirm_password( class="form-control h-auto text-white placeholder-white opacity-70 bg-dark-o-70 rounded-pill border-0 py-4 px-8",placeholder=" Confirmez votre mot de passe ") }}
+            {% endif %}
+        </div>
+        <div class="form-group">
+            {{ form.submit(id="kt_login_forgot_submit", class="btn btn-pill btn-outline-white font-weight-bold opacity-90 px-15 py-3 m-2") }}
+        <button id="kt_login_forgot_cancel" class="btn btn-pill btn-outline-white font-weight-bold opacity-70 px-15 py-3 m-2">Annuler</button>
+        </div>
+    </form>
+</div>
+
+</div>
+</div>
+</div>
+<!--end::Login-->
+</div>
+{% endblock content %}

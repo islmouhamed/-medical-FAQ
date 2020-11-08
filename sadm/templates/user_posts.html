@@ -1,0 +1,194 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<div class="d-flex flex-column-fluid">
+  <!--begin::Container-->
+  <div class="container">
+
+<div class="card card-custom gutter-b" style="margin-top: -20px;">
+  <div class="card-body">
+    <!--begin::Details-->
+    <div class="d-flex mb-9">
+      <!--begin: Pic-->
+      <div class="flex-shrink-0 mr-7 mt-lg-0 mt-3">
+        <div class="symbol symbol-50 symbol-lg-120">
+          <img src="{{ url_for('static', filename='profile_pics2/' + user.image_file) }}" alt="image" />
+        </div>
+        <div class="symbol symbol-50 symbol-lg-120 symbol-primary d-none">
+          <span class="font-size-h3 symbol-label font-weight-boldest">JM</span>
+        </div>
+      </div>
+      <!--end::Pic-->
+      <!--begin::Info-->
+      <div class="flex-grow-1">
+        <!--begin::Title-->
+        <div class="d-flex justify-content-between flex-wrap mt-1">
+          <div class="d-flex mr-3">
+            <a href="#" class="text-dark-75 text-hover-primary font-size-h5 font-weight-bold mr-3">Dr:{{ user.name }} {{ user.firstname }}</a>
+            <a href="#">
+              <i class="flaticon2-correct text-success font-size-h5"></i>
+            </a>
+          </div>
+          <div class="my-lg-0 my-3">
+            {% if user == current_user %}
+              <a href="/upaccount" class="btn btn-sm btn-light-success font-weight-bolder text-uppercase mr-3">Modifier votre profile</a>
+            {% elif not current_user.is_following(user) %}
+              <a href="{{ url_for('follow', name=user.name) }}" class="btn btn-sm btn-info font-weight-bolder text-uppercase">S'abonner</a>
+            {% else %}
+              <a href="{{ url_for('unfollow', name=user.name) }}" class="btn btn-sm btn-info font-weight-bolder text-uppercase">Se désabonner</a>
+            {% endif %}  
+
+          </div>
+        </div>
+        <!--end::Title-->
+        <!--begin::Content-->
+        <div class="d-flex flex-wrap justify-content-between mt-1">
+          <div class="d-flex flex-column flex-grow-1 pr-8">
+            <div class="d-flex flex-wrap mb-4">
+              <a href="#" class="text-dark-50 text-hover-primary font-weight-bold mr-lg-8 mr-5 mb-lg-0 mb-2">
+              <i class="flaticon2-new-email mr-2 font-size-lg"></i>{{ user.email }}</a>
+              <a href="#" class="text-dark-50 text-hover-primary font-weight-bold mr-lg-8 mr-5 mb-lg-0 mb-2">
+               {% if user.specialite == 'value' %}
+              <i class="flaticon2-calendar-3 mr-2 font-size-lg"></i>Dr: Neurologue</a>
+              {% else %}
+              <i class="flaticon2-calendar-3 mr-2 font-size-lg"></i>Dr: Radiologue</a>
+              {% endif %}  
+              <a href="#" class="text-dark-50 text-hover-primary font-weight-bold">
+              <i class="flaticon2-placeholder mr-2 font-size-lg"></i>{{ user.adresse }}</a>
+            </div> 
+          </div>
+           
+        </div>
+        <div class="d-flex flex-wrap justify-content-between mt-1">
+          <div class="d-flex flex-column flex-grow-1 pr-8">
+            <div class="d-flex flex-wrap mb-4">
+              <a href="#" class="text-dark-50 text-hover-primary font-weight-bold mr-lg-8 mr-5 mb-lg-0 mb-2">
+              {% if user.last_seen %}Dernière connexion : {{ user.last_seen.strftime('%d-%m-%Y, %H:%M') }}{% endif %}</a>
+             
+            </div> 
+            
+          </div>
+           
+        </div>
+        <!--end::Content-->
+      </div>
+      <!--end::Info-->
+    </div>
+    <!--end::Details-->
+    <div class="separator separator-solid"></div>
+    <!--begin::Items-->
+    <div class="d-flex align-items-center flex-wrap mt-8">
+      <!--begin::Item-->
+      <div class="col-md-2 col-md-offset-3 d-flex align-items-center flex-lg-fill mr-5 mb-2" style="margin-left: 32%;">
+        <span class="mr-4">
+          <i class="flaticon-network display-4 text-muted font-weight-bold"></i>
+        </span>
+        <div class="d-flex flex-column text-dark-75">
+          <span class="font-weight-bolder font-size-sm">Abonnés</span>
+          <span class="font-weight-bolder font-size-h5">
+          <span class="text-dark-50 font-weight-bold"></span>{{ user.followers.count() }}</span>
+        </div>
+      </div>
+      <!--end::Item-->
+      
+      <!--begin::Item-->
+      <div class="col-md-2 d-flex align-items-center flex-lg-fill mr-5 mb-2">
+        <span class="mr-4">
+          <i class="flaticon-network display-4 text-muted font-weight-bold"></i>
+        </span>
+        <div class="d-flex flex-column text-dark-75">
+          <span class="font-weight-bolder font-size-sm">Abonnements</span>
+          <span class="font-weight-bolder font-size-h5">
+          <span class="text-dark-50 font-weight-bold"></span>{{ user.followed.count() }}</span>
+        </div>
+      </div>
+      <!--end::Item-->
+    </div>
+    <!--begin::Items-->
+  </div>
+</div>
+<!--end::Card-->
+
+{% for post in posts.items %}
+<div class="row">
+    
+    <div class="col-xl-10" style="margin-left: 11%;">
+        <!--begin::Card-->
+        <div class="card card-custom gutter-b card-stretch">
+            <!--begin::Body-->
+            <div class="card-body">
+                <!--begin::Section-->
+                <div class="d-flex align-items-center">
+                    <!--begin::Pic-->
+                    <div class="flex-shrink-0 mr-4 symbol symbol-65 symbol-circle">
+                        <img src="{{ url_for('static', filename='profile_pics2/' + post.author.image_file) }}" alt="image" />
+                    </div>
+                    <!--end::Pic-->
+                    <!--begin::Info-->
+                    <div class="d-flex flex-column mr-auto">
+                        <!--begin: Title-->
+                        <a href="{{ url_for('user_posts', name=post.author.name) }}" class="card-title text-hover-primary font-weight-bolder font-size-h5 text-dark mb-1">Dr:{{ post.author.name }}  {{ post.author.firstname }}</a>
+                        <span class="text-muted font-weight-bold">{{ post.date_posted.strftime('%Y-%m-%d,%H:%M') }}</span>
+                        <!--end::Title-->
+                    </div>
+                    <!--end::Info-->
+                    
+                </div>
+                <!--end::Section-->
+            </br>
+                <div class="row" style="box-shadow: 0 0 23px; border-radius: 25px;">
+                        <div class="card" style="width:100%;">
+                        <div class="row no-gutters">
+                            <div class="col-sm-4">
+                                <img class="card-img" src="{{ url_for('static', filename='post_pics2/' + post.image_post) }}">
+                            </div>
+                            <div class="col-sm-8">
+                                <div class="card-body">
+                                    <h5 class="card-title">{{ post.title }}</h5>
+                                    <p class="card-text">{{ post.content }}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--begin::Content-->
+                
+                <!--end::Text-->
+                <!--begin::Blog-->
+                
+                <!--end::Blog-->
+            </div>
+            <!--end::Body-->
+            <!--begin::Footer-->
+            <div class="card-footer d-flex align-items-center">
+                
+                <a href="{{ url_for('post', post_id=post.id) }}" class="btn btn-primary btn-sm text-uppercase font-weight-bolder mt-5 mt-sm-0 mr-auto mr-sm-0 ml-sm-auto">details</a>
+            </div>
+            <!--end::Footer-->
+        </div>
+        <!--end::Card-->
+    </div>
+    
+    
+</div>
+{% endfor %}
+
+<!--end::Row-->
+{% for page_num in posts.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=2) %}
+{% if page_num %}
+  {% if posts.page == page_num %}
+    <a class="btn btn-info mb-4" href="{{ url_for('home', page=page_num) }}">{{ page_num }}</a>
+  {% else %}
+    <a class="btn btn-outline-info mb-4" href="{{ url_for('home', page=page_num) }}">{{ page_num }}</a>
+  {% endif %}
+{% else %}
+  ...
+{% endif %}
+{% endfor %}
+</div>
+</div>
+
+
+
+
+{% endblock content %}

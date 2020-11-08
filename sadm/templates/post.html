@@ -1,0 +1,194 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<div class="d-flex flex-column-fluid">
+    <!--begin::Container-->
+    <div class="container">
+        <!--begin::Row-->
+        
+        <div class="row">
+            
+            <div class="col-xl-10" style="margin-left: 11%;">
+                <!--begin::Card-->
+                <div class="card card-custom gutter-b card-stretch">
+                    <!--begin::Body-->
+                    <div class="card-body">
+                        <!--begin::Section-->
+                        <div class="d-flex align-items-center">
+                            <!--begin::Pic-->
+                            <div class="flex-shrink-0 mr-4 symbol symbol-65 symbol-circle">
+                                <img src="{{ url_for('static', filename='profile_pics2/' + post.author.image_file) }}" alt="image" />
+                            </div>
+                            <!--end::Pic-->
+                            <!--begin::Info-->
+                            <div class="d-flex flex-column mr-auto">
+                                <!--begin: Title-->
+                                <a href="{{ url_for('user_posts', name=post.author.name) }}" class="card-title text-hover-primary font-weight-bolder font-size-h5 text-dark mb-1">Dr:{{ post.author.name }}  {{ post.author.firstname }}</a>
+                                <span class="text-muted font-weight-bold">{{ post.date_posted.strftime('%Y-%m-%d,%H:%M') }}</span>
+                                <!--end::Title-->
+                            </div>
+                            <!--end::Info-->
+                            
+                            <div class="my-lg-0 my-3">
+                              {% if post.author == current_user %} 
+                              <a href="{{ url_for('update_post', post_id=post.id) }}" class="btn btn-sm btn-light-success font-weight-bolder text-uppercase mr-3">Mettre a jour</a>
+                              <a href="#" class="btn btn-sm btn-light-danger font-weight-bolder text-uppercase mr-3" data-toggle="modal" data-target="#deleteModal">Suprimmer</a>
+                              {% endif %}
+                              
+                
+                          </div>
+                            
+                        </div>
+                        <!--end::Section-->
+                    </br>
+                        <div class="row" style="box-shadow: 0 0 23px; border-radius: 25px;">
+                                <div class="card" style="width:100%;">
+                                <div class="row no-gutters">
+                                    <div class="col-sm-4">
+                                        <img class="card-img" src="{{ url_for('static', filename='post_pics2/' + post.image_post) }}">
+                                    </div>
+                                    <div class="col-sm-8">
+                                        <div class="card-body">
+                                            <h5 class="card-title">{{ post.title }}</h5>
+                                            <p class="card-text">{{ post.content }}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--begin::Content-->
+                        
+                        <!--end::Text-->
+                        <!--begin::Blog-->
+                        
+                        <!--end::Blog-->
+                    </div>
+                    <!--end::Body-->
+                    <!--begin::Footer-->
+                   
+                    <!--end::Footer-->
+                </div>
+                <!--end::Card-->
+            </div>
+            
+            
+        </div>
+        <div class="row">
+<!--begin::Card-->
+<div class="card card-custom gutter-bs col-md-12">
+  <!--begin::Header-->
+  <div class="card-header card-header-tabs-line">
+    <div class="card-toolbar">
+      <ul class="nav nav-tabs nav-tabs-space-lg nav-tabs-line nav-tabs-bold nav-tabs-line-3x" role="tablist">
+      
+        <li class="nav-item active">
+          <a class="nav-link active" data-toggle="tab" href="#kt_apps_projects_view_tab_1">
+            <span class="nav-icon mr-2">
+              <span class="svg-icon mr-3">
+                <!--begin::Svg Icon | path:assets/media/svg/icons/General/Notification2.svg-->
+                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+                  <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                    <rect x="0" y="0" width="24" height="24" />
+                    <path d="M13.2070325,4 C13.0721672,4.47683179 13,4.97998812 13,5.5 C13,8.53756612 15.4624339,11 18.5,11 C19.0200119,11 19.5231682,10.9278328 20,10.7929675 L20,17 C20,18.6568542 18.6568542,20 17,20 L7,20 C5.34314575,20 4,18.6568542 4,17 L4,7 C4,5.34314575 5.34314575,4 7,4 L13.2070325,4 Z" fill="#000000" />
+                    <circle fill="#000000" opacity="0.3" cx="18.5" cy="5.5" r="2.5" />
+                  </g>
+                </svg>
+                <!--end::Svg Icon-->
+              </span>
+            </span>
+            <span class="nav-text font-weight-bold">Commentaire</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <!--end::Header-->
+  <!--begin::Body-->
+  <div class="card-body px-0">
+    <div class="tab-content pt-5">
+    
+      <!--begin::Tab Content-->
+      <div class="tab-pane active" id="kt_apps_projects_view_tab_1" role="tabpanel">
+        <div class="container">
+          <form class="form" method="POST" action="/post/{{post.id}}/comment">
+            {{ form.hidden_tag() }}
+            <div class="form-group">
+              {% if form.body.errors %}
+                    {{ form.body(class="form-control form-control-lg form-control-solid is-invalid",rows="3") }}
+                    <div class="invalid-feedback">
+                        {% for error in form.body.errors %}
+                            <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                    {% else %}
+                        {{ form.body(class="form-control form-control-lg form-control-solid",rows="3", placeholder="Enter votre commentaire ") }}
+                    {% endif %}
+            </div>
+            <div class="row">
+              <div class="col">
+                
+                {{ form.submit( class="btn btn-light-primary font-weight-bold") }}
+                <a href="#" class="btn btn-clean font-weight-bold">Cancel</a>
+              </div>
+            </div>
+          </form>
+          <div class="separator separator-dashed my-10"></div>
+          <!--begin::Timeline-->
+          <div class="timeline timeline-3">
+            {% for com in coms %}
+            {% if post.id == com.post_id %}
+            <div class="timeline-items">
+              <div class="timeline-item">
+                <div class="timeline-media">
+                  <img alt="Pic" src="{{ url_for('static', filename='profile_pics2/' + com.author1.image_file) }}" />
+                </div>
+                <div class="timeline-content">
+                  <div class="d-flex align-items-center justify-content-between mb-3">
+                    <div class="mr-2">
+                      <a href="{{ url_for('user_posts', name=com.author1.name) }}" class="text-dark-75 text-hover-primary font-weight-bold">Dr:{{ com.author1.name }} {{ com.author1.firstname }}</a>
+                      
+                      <small class="text-muted">{{ com.timestamp.strftime('%Y-%m-%d,%H:%M') }}</small>
+                    </div>
+                    
+                  </div>
+                  <p class="p-0">{{ com.body }}</p>
+                </div>
+              </div>
+            </div>
+            {%endif %}
+            {%endfor%} 
+          </div>
+          <!--end::Timeline-->
+        </div>
+      </div>
+      <!--end::Tab Content-->
+    </div>
+  </div>
+  <!--end::Body-->
+</div>
+<!--end::Card-->
+        </div>
+        
+        </div></div>
+        
+<!-- Modal -->
+<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="deleteModalLabel">Etes vous sur de vouloir Supprimer le post?</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+        <form action="{{ url_for('delete_post', post_id=post.id) }}" method="POST">
+          <input class="btn btn-danger" type="submit" value="Supprimer">
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock content %}

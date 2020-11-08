@@ -1,0 +1,87 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<div class="d-flex flex-column-fluid">
+    <!--begin::Container-->
+    <div class="container">
+        <!--begin::Row-->
+        {% for post in posts.items %}
+        <div class="row">
+            
+            <div class="col-xl-10" style="margin-left: 11%;">
+                <!--begin::Card-->
+                <div class="card card-custom gutter-b card-stretch">
+                    <!--begin::Body-->
+                    <div class="card-body">
+                        <!--begin::Section-->
+                        <div class="d-flex align-items-center">
+                            <!--begin::Pic-->
+                            <div class="flex-shrink-0 mr-4 symbol symbol-65 symbol-circle">
+                                <img src="{{ url_for('static', filename='profile_pics2/' + post.author.image_file) }}" alt="image" />
+                            </div>
+                            <!--end::Pic-->
+                            <!--begin::Info-->
+                            <div class="d-flex flex-column mr-auto">
+                                <!--begin: Title-->
+                                <a href="{{ url_for('user_posts', name=post.author.name) }}" class="card-title text-hover-primary font-weight-bolder font-size-h5 text-dark mb-1">Dr:{{ post.author.name }}  {{ post.author.firstname }}</a>
+                                <span class="text-muted font-weight-bold">{{ post.date_posted.strftime('%Y-%m-%d,%H:%M') }}</span>
+                                <!--end::Title-->
+                            </div>
+                            <!--end::Info-->
+                            
+                        </div>
+                        <!--end::Section-->
+                    </br>
+                        <div class="row" style="box-shadow: 0 0 23px; border-radius: 25px;">
+                                <div class="card" style="width:100%;">
+                                <div class="row no-gutters">
+                                    <div class="col-sm-4">
+                                        <img class="card-img" src="{{ url_for('static', filename='post_pics2/' + post.image_post) }}">
+                                    </div>
+                                    <div class="col-sm-8">
+                                        <div class="card-body">
+                                            <h5 class="card-title">{{ post.title }}</h5>
+                                            <p class="card-text">{{ post.content }}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--begin::Content-->
+                        
+                        <!--end::Text-->
+                        <!--begin::Blog-->
+                        
+                        <!--end::Blog-->
+                    </div>
+                    <!--end::Body-->
+                    <!--begin::Footer-->
+                    <div class="card-footer d-flex align-items-center">
+                        
+                        <a href="{{ url_for('post', post_id=post.id) }}" class="btn btn-primary btn-sm text-uppercase font-weight-bolder mt-5 mt-sm-0 mr-auto mr-sm-0 ml-sm-auto">details</a>
+                    </div>
+                    <!--end::Footer-->
+                </div>
+                <!--end::Card-->
+            </div>
+            
+            
+        </div>
+        {% endfor %}
+        
+        <!--end::Row-->
+        {% for page_num in posts.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=2) %}
+        {% if page_num %}
+          {% if posts.page == page_num %}
+            <a class="btn btn-info mb-4" href="{{ url_for('home', page=page_num) }}">{{ page_num }}</a>
+          {% else %}
+            <a class="btn btn-outline-info mb-4" href="{{ url_for('home', page=page_num) }}">{{ page_num }}</a>
+          {% endif %}
+        {% else %}
+          ...
+        {% endif %}
+      {% endfor %}
+        </div></div>
+        
+
+{% endblock content %}

@@ -1,0 +1,154 @@
+{% extends "layout_login.html" %}
+{% block content %}
+	<!--end::Head-->
+	<!--begin::Body-->
+	<body id="kt_body" style="background-image: url(static/media/bg/bg-10.jpg)" class="quick-panel-right demo-panel-right offcanvas-right header-fixed subheader-enabled page-loading">
+		<!--begin::Main-->
+		<div class="d-flex flex-column flex-root">
+			<!--begin::Login-->
+			<div class="login login-1 login-signin-on d-flex flex-row-fluid" id="kt_login">
+				<div class="d-flex flex-center bgi-size-cover bgi-no-repeat flex-row-fluid" style="background-image: url(static/media/bg/bg-1.jpg);">
+					<div class="login-form text-center text-white p-7 position-relative overflow-hidden">
+						<!--begin::Login Header-->
+						<div class="d-flex flex-center mb-15">
+							<a href="#">
+								<img src="{{ url_for('static', filename='media/logos/logo-letter-9.png') }}" class="max-h-100px" alt="" />
+							</a>
+						</div>
+                        <!--end::Login Header
+                        {{ url_for('static', filename='main.css') }}
+                        -->
+						<!--begin::Login Sign in form-->
+                        <div class="login-signup-on">
+							<div class="mb-20">
+								<h3>Inscrivez vous</h3>
+								<p class="opacity-60">Entrez vos coordonnées pour créer votre compte</p>
+							</div>
+							<form class="form text-center" id="kt_login_signup_form" method="POST" action="">
+								{{ form.hidden_tag() }}
+								<div class="form-group">
+									{% if form.name.errors %}
+										{{ form.name(class="form-control h-auto text-white placeholder-white opacity-70 bg-dark-o-70 rounded-pill border-0 py-4 px-8 is-invalid") }}
+										<div class="invalid-feedback">
+											{% for error in form.name.errors %}
+												<span>{{ error }}</span>
+											{% endfor %}
+                                        </div>
+                                        {% else %}
+                                        {{ form.name( class="form-control h-auto text-white placeholder-white opacity-70 bg-dark-o-70 rounded-pill border-0 py-4 px-8",placeholder="Nom") }}
+									{% endif %}
+								</div>
+								<div class="form-group">
+									{% if form.firstname.errors %}
+										{{ form.firstname(class="form-control h-auto text-white placeholder-white opacity-70 bg-dark-o-70 rounded-pill border-0 py-4 px-8 is-invalid") }}
+										<div class="invalid-feedback">
+											{% for error in form.firstname.errors %}
+												<span>{{ error }}</span>
+											{% endfor %}
+                                        </div>
+                                        {% else %}
+                                        {{ form.firstname( class="form-control h-auto text-white placeholder-white opacity-70 bg-dark-o-70 rounded-pill border-0 py-4 px-8",placeholder="Prénom") }}
+									{% endif %}
+								</div>
+								<div class="form-group">
+									{% if form.nai_date.errors %}
+										{{ form.nai_date(class="form-control h-auto text-white placeholder-white opacity-70 bg-dark-o-70 rounded-pill border-0 py-4 px-8 is-invalid") }}
+										<div class="invalid-feedback">
+											{% for error in form.nai_date.errors %}
+												<span>{{ error }}</span>
+											{% endfor %}
+                                        </div>
+                                        {% else %}
+                                        {{ form.nai_date( class="form-control h-auto text-white placeholder-white opacity-70 bg-dark-o-70 rounded-pill border-0 py-4 px-8",placeholder="Date de naissance") }}
+                    				{% endif %}
+								</div>
+								<div class="form-group">
+									{% if form.adresse .errors %}
+										{{ form.adresse(class="form-control h-auto text-white placeholder-white opacity-70 bg-dark-o-70 rounded-pill border-0 py-4 px-8 is-invalid") }}
+										<div class="invalid-feedback">
+											{% for error in form.adresse.errors %}
+												<span>{{ error }}</span>
+											{% endfor %}
+                                        </div>
+                                        {% else %}
+                                        {{ form.adresse( class="form-control h-auto text-white placeholder-white opacity-70 bg-dark-o-70 rounded-pill border-0 py-4 px-8",placeholder="Adresse") }}
+									{% endif %}
+								</div>
+								<div class="form-group">
+									{% if form.num_pro.errors %}
+										{{ form.num_pro(class="form-control h-auto text-white placeholder-white opacity-70 bg-dark-o-70 rounded-pill border-0 py-4 px-8 is-invalid") }}
+										<div class="invalid-feedback">
+											{% for error in form.num_pro.errors %}
+												<span>{{ error }}</span>
+											{% endfor %}
+                                        </div>
+                                        {% else %}
+                                        {{ form.num_pro( class="form-control h-auto text-white placeholder-white opacity-70 bg-dark-o-70 rounded-pill border-0 py-4 px-8",placeholder="Num Profesionelle") }}
+									{% endif %}
+								</div>
+								<div class="form-group">
+									{% if form.email.errors %}
+										{{ form.email( class="form-control h-auto text-white placeholder-white opacity-70 bg-dark-o-70 rounded-pill border-0 py-4 px-8 is-invalid") }}
+										<div class="invalid-feedback">
+											{% for error in form.email.errors %}
+												<span>{{ error }}</span>
+											{% endfor %}
+                                        </div>
+                                    {% else %}
+                                        {{ form.email( class="form-control h-auto text-white placeholder-white opacity-70 bg-dark-o-70 rounded-pill border-0 py-4 px-8",placeholder="Email") }}
+									{% endif %}
+								</div>
+								<div class="form-group">
+                              
+                                    {% if form.password.errors %}
+                                    {{ form.password(class="form-control h-auto text-white placeholder-white opacity-70 bg-dark-o-70 rounded-pill border-0 py-4 px-8 is-invalid") }}
+										<div class="invalid-feedback">
+											{% for error in form.password.errors %}
+												<span>{{ error }}</span>
+											{% endfor %}
+                                        </div>
+                                        {% else %}
+                                        {{ form.password( class="form-control h-auto text-white placeholder-white opacity-70 bg-dark-o-70 rounded-pill border-0 py-4 px-8",placeholder="Mot de passe ") }}
+									{% endif %}
+								</div>
+								<div class="form-group">
+                                    {% if form.confirm_password.errors %}
+                                        {{ form.confirm_password( class="form-control h-auto text-white placeholder-white opacity-70 bg-dark-o-70 rounded-pill border-0 py-4 px-8 is-invalid",placeholder=" Confirmez votre mot de passe ") }}
+										
+										<div class="invalid-feedback">
+											{% for error in form.confirm_password.errors %}
+												<span>{{ error }}</span>
+											{% endfor %}
+                                        </div>
+                                        {% else %}
+                                        {{ form.confirm_password( class="form-control h-auto text-white placeholder-white opacity-70 bg-dark-o-70 rounded-pill border-0 py-4 px-8",placeholder=" Confirmez votre mot de passe ") }}
+									{% endif %}
+								</div>
+								<div class="form-group">
+                                    
+									{{ form.specialite(class="form-control h-auto text-white opacity-70 bg-dark-o-70 rounded-pill border-0 py-4 px-8") }}
+								</div>
+								
+								
+								<div class="form-group">
+									{{ form.submit( id="kt_login_signup_submit", class="btn btn-pill btn-outline-white font-weight-bold opacity-90 px-15 py-3 m-2" ,value="crée") }}
+									<button id="kt_login_signup_cancel" class="btn btn-pill btn-outline-white font-weight-bold opacity-70 px-15 py-3 m-2">Annuler</button>
+								</div>
+							</form>
+						</div>
+						<!--end::Login forgot password form-->
+					</div>
+				</div>
+			</div>
+			<!--end::Login-->
+        </div>
+        <style>
+            #specialite {
+            list-style: none;
+            }
+            #specialite label{
+                color: white;
+            }
+        </style>
+        {% endblock content %}
+        

@@ -1,0 +1,76 @@
+{% extends "layout_login.html" %}
+{% block content %}
+	<!--end::Head-->
+	<!--begin::Body-->
+	<body id="kt_body" style="background-image: url(static/media/bg/bg-10.jpg)" class="quick-panel-right demo-panel-right offcanvas-right header-fixed subheader-enabled page-loading">
+		<!--begin::Main-->
+		<div class="d-flex flex-column flex-root">
+			<!--begin::Login-->
+			<div class="login login-1 login-signin-on d-flex flex-row-fluid" id="kt_login">
+				<div class="d-flex flex-center bgi-size-cover bgi-no-repeat flex-row-fluid" style="background-image: url(static/media/bg/bg-1.jpg);">
+					<div class="login-form text-center text-white p-7 position-relative overflow-hidden">
+						<!--begin::Login Header-->
+						<div class="d-flex flex-center mb-15">
+							<a href="#">
+								<img src="{{ url_for('static', filename='media/logos/logo-letter-9.png') }}" class="max-h-100px" alt="" />
+							</a>
+						</div>
+                        <!--end::Login Header
+                        {{ url_for('static', filename='main.css') }}
+                        -->
+						<!--begin::Login Sign in form-->
+						<div class="login-signin">
+							<div class="mb-20">
+								<h3>Connexion</h3>
+								<p class="opacity-60 font-weight-bold">Entrez vos coordonnées pour vous connecter à votre compte :</p>
+							</div>
+							<form class="form" method="POST" action="">
+								{{ form.hidden_tag() }}
+								<div class="form-group">
+                                    {{ form.email(class="form-control h-auto text-white placeholder-white opacity-70 bg-dark-o-70 rounded-pill border-0 py-4 px-8 mb-5", placeholder="Email") }}
+                                    {% if form.email.errors %}
+										{{ form.email(class="form-control form-control-lg is-invalid") }}
+										<div class="invalid-feedback">
+											{% for error in form.email.errors %}
+												<span>{{ error }}</span>
+											{% endfor %}
+										</div>
+									{% endif %}
+                                </div>
+								<div class="form-group">
+                                    {{ form.password(class="form-control h-auto text-white placeholder-white opacity-70 bg-dark-o-70 rounded-pill border-0 py-4 px-8 mb-5",placeholder="mot de passe") }}
+                                    {% if form.password.errors %}
+										{{ form.password(class="form-control form-control-lg is-invalid") }}
+										<div class="invalid-feedback">
+											{% for error in form.password.errors %}
+												<span>{{ error }}</span>
+											{% endfor %}
+										</div>
+									
+									{% endif %}
+                                </div>
+								<div class="form-group d-flex flex-wrap justify-content-between align-items-center px-8">
+									<label class="checkbox checkbox-outline checkbox-white text-white m-0">
+                                        {{ form.remember(class="form-check-input") }} Remember me
+									<span></span></label>
+									<a href="{{ url_for('reset_request') }}" id="kt_login_forgot" class="text-white font-weight-bold">Mot de passe oublié??</a>
+								</div>
+								<div class="form-group text-center mt-10">
+									{{ form.submit(class="btn btn-pill btn-outline-white font-weight-bold opacity-90 px-15 py-3",value="Connexion") }}
+									
+								</div>
+							</form>
+							<div class="mt-10">
+								<span class="opacity-70 mr-4"> Besoin d’un compte? </span>
+								<a href="{{ url_for('register') }}"  class="text-white font-weight-bold">Inscrivez-vous dès maintenant</a>
+							</div>
+						</div>
+						<!--end::Login Sign in form-->
+						
+						
+					</div>
+				</div>
+			</div>
+			<!--end::Login-->
+		</div>
+		{% endblock content %}

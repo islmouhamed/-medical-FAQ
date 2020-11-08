@@ -1,0 +1,56 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<div class="col-lg-8"style="margin-left: 14%;">
+    <!--begin::Card-->
+    <div class="card card-custom" >
+        <div class="card-header">
+            <div class="card-title">
+                <h3 class="card-label">Entrez un commentaire</h3>
+            </div>
+        </div>
+        <!--begin::Form-->
+        <form method="POST" action="" enctype="multipart/form-data">
+        {{ form.hidden_tag() }}
+            <div class="card-body">
+                <div class="form-group row">
+                    {{ form.body.label(class="col-lg-3 col-form-label text-lg-right") }}
+                    <div class="col-lg-7">
+                        {% if form.body.errors %}
+                    {{ form.body(class="col-lg-3 col-form-label text-lg-right is-invalid") }}
+                    <div class="invalid-feedback">
+                        {% for error in form.body.errors %}
+                            <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                    {% else %}
+                        {{ form.body(class="form-control", placeholder="Enter votre commentaire ") }}
+                    {% endif %}
+                    </div>
+                </div>
+
+               
+
+
+                
+        
+               
+            </div>
+            <div class="card-footer">
+                <div class="row">
+                    <div class="col-lg-3"></div>
+                    <div class="col-lg-9">
+
+                        {{ form.submit(class="btn btn-light-primary mr-2") }}
+                        
+                        <button type="reset" class="btn btn-primary">Cancel</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+        <!--end::Form-->
+    </div>
+    <!--end::Card-->
+
+
+{% endblock content %}

@@ -1,0 +1,24 @@
+{% extends "layout.html" %}
+{% block content %}
+<div class="content-section">
+    <div class="media">
+      <img class="rounded-circle account-img" src="{{ image_file }}">
+      <div class="media-body">
+        <h2 class="account-heading">Dr:{{ user.name }} {{ user.firstname }}</h2>
+        {% if user.last_seen %}<p>Dernière connexion : {{ user.last_seen.strftime('%d-%m-%Y, %H:%M') }}</p>{% endif %}
+        <p class="text-secondary">{{ user.email }}</p>
+        <p class="text-secondary">{{ user.adresse }}</p>
+        <p>{{ user.followers.count() }} Abonnés, {{ user.followed.count() }} Abonnements.</p>
+        {% if user == current_user %}
+        <p><a class="nav-item nav-link" href="/upaccount">Modifier votre profile 
+        </a></p>
+        {% elif not current_user.is_following(user) %}
+                <p><a href="{{ url_for('follow', name=user.name) }}">S'abonner</a></p>
+       {% else %}
+                <p><a href="{{ url_for('unfollow', name=user.name) }}">Se désabonner </a></p>
+        {% endif %}  
+      
+    </div>
+    </div>
+</div>
+{% endblock content %}
